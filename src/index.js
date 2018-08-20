@@ -193,7 +193,9 @@ export default function createScrollingComponent(WrappedComponent) {
             )
             : scrollTop;
 
-          onScrollChange(newLeft, newTop);
+          if (newLeft !== scrollLeft || newTop !== scrollTop) {
+            onScrollChange(newLeft, newTop);
+          }
         }
         this.frame = raf(tick);
       };
