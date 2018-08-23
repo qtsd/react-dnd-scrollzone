@@ -163,39 +163,33 @@ export default function createScrollingComponent(WrappedComponent) {
           return;
         }
 
-        // there's a bug in safari where it seems like we can't get
-        // mousemove events from a container that also emits a scroll
-        // event that same frame. So we double the strengthMultiplier and only adjust
-        // the scroll position at 30fps
-        if (i++ % 2) {
-          const {
-            scrollLeft,
-            scrollTop,
-            scrollWidth,
-            scrollHeight,
-            clientWidth,
-            clientHeight,
-          } = container;
+        const {
+          scrollLeft,
+          scrollTop,
+          scrollWidth,
+          scrollHeight,
+          clientWidth,
+          clientHeight,
+        } = container;
 
-          const newLeft = scaleX
-            ? container.scrollLeft = intBetween(
-              0,
-              scrollWidth - clientWidth,
-              scrollLeft + scaleX * strengthMultiplier
-            )
-            : scrollLeft;
+        const newLeft = scaleX
+          ? container.scrollLeft = intBetween(
+            0,
+            scrollWidth - clientWidth,
+            scrollLeft + scaleX * strengthMultiplier
+          )
+          : scrollLeft;
 
-          const newTop = scaleY
-            ? container.scrollTop = intBetween(
-              0,
-              scrollHeight - clientHeight,
-              scrollTop + scaleY * strengthMultiplier
-            )
-            : scrollTop;
+        const newTop = scaleY
+          ? container.scrollTop = intBetween(
+            0,
+            scrollHeight - clientHeight,
+            scrollTop + scaleY * strengthMultiplier
+          )
+          : scrollTop;
 
-          if (newLeft !== scrollLeft || newTop !== scrollTop) {
-            onScrollChange(newLeft, newTop);
-          }
+        if (newLeft !== scrollLeft || newTop !== scrollTop) {
+          onScrollChange(newLeft, newTop);
         }
         this.frame = raf(tick);
       };
