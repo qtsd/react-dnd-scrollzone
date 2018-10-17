@@ -1,7 +1,4 @@
 {
-    "presets": [
-        "es2015",
-        "stage-1",
-        "react"
-    ]
+  "presets": ["@babel/preset-react", ["@babel/env", { "loose": true }]],
+  "plugins": [["@babel/plugin-proposal-class-properties", { "loose": true }]]
 }
