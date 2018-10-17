@@ -8,12 +8,14 @@ import './App.css';
 
 const ScrollingComponent = withScrolling('div');
 
-const ITEMS = [1,2,3,4,5,6,7,8,9,10];
+const ITEMS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export default class App extends Component {
   render() {
     return (
-      <DragDropContextProvider backend={TouchBackend({ enableMouseEvents: true })}>
+      <DragDropContextProvider
+        backend={TouchBackend({ enableMouseEvents: true })}
+      >
         <ScrollingComponent className="App">
           {ITEMS.map(n => (
             <DragItem key={n} label={`Item ${n}`} />

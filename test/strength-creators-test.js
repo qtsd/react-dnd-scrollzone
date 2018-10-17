@@ -30,8 +30,8 @@ describe('strength functions', function() {
     });
 
     it('should scale linearly from the boundary to respective buffer', function() {
-      expect(hFn(box, { x: 75, y: 0 })).to.equal(-.5);
-      expect(hFn(box, { x: 525, y: 0 })).to.equal(.5);
+      expect(hFn(box, { x: 75, y: 0 })).to.equal(-0.5);
+      expect(hFn(box, { x: 525, y: 0 })).to.equal(0.5);
     });
 
     it('should handle buffers larger than the box gracefully', function() {
@@ -63,8 +63,8 @@ describe('strength functions', function() {
     });
 
     it('should scale linearly from the boundary to respective buffer', function() {
-      expect(vFn(box, { x: 0, y: 75 })).to.equal(-.5);
-      expect(vFn(box, { x: 0, y: 525 })).to.equal(.5);
+      expect(vFn(box, { x: 0, y: 75 })).to.equal(-0.5);
+      expect(vFn(box, { x: 0, y: 525 })).to.equal(0.5);
     });
 
     it('should handle buffers larger than the box gracefully', function() {

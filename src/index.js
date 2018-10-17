@@ -5,8 +5,8 @@ import throttle from 'lodash.throttle';
 import raf from 'raf';
 import getDisplayName from 'react-display-name';
 import hoist from 'hoist-non-react-statics';
-import { noop, intBetween } from './util';
 import { DropTarget } from 'react-dnd';
+import { noop, intBetween } from './util';
 
 const DEFAULT_BUFFER = 150;
 
@@ -19,7 +19,8 @@ export function createHorizontalStrength(_buffer) {
     if (inBox) {
       if (point.x < x + buffer) {
         return (point.x - x - buffer) / buffer;
-      } else if (point.x > x + w - buffer) {
+      }
+      if (point.x > x + w - buffer) {
         return -(x + w - point.x - buffer) / buffer;
       }
     }
@@ -37,7 +38,8 @@ export function createVerticalStrength(_buffer) {
     if (inBox) {
       if (point.y < y + buffer) {
         return (point.y - y - buffer) / buffer;
-      } else if (point.y > y + h - buffer) {
+      }
+      if (point.y > y + h - buffer) {
         return -(y + h - point.y - buffer) / buffer;
       }
     }
@@ -76,6 +78,10 @@ export default function createScrollingComponent(WrappedComponent, itemTypes) {
       this.scaleX = 0;
       this.scaleY = 0;
       this.frame = null;
+
+      this.updateScrolling = throttle(this.updateScrolling, 100, {
+        trailing: false,
+      });
     }
 
     componentDidMount() {
@@ -94,28 +100,24 @@ export default function createScrollingComponent(WrappedComponent, itemTypes) {
 
     // Update scaleX and scaleY every 100ms or so
     // and start scrolling if necessary
-    updateScrolling = throttle(
-      coords => {
-        const {
-          left: x,
-          top: y,
-          width: w,
-          height: h,
-        } = this.container.getBoundingClientRect();
-        const box = { x, y, w, h };
+    updateScrolling(coords) {
+      const {
+        left: x,
+        top: y,
+        width: w,
+        height: h,
+      } = this.container.getBoundingClientRect();
+      const box = { x, y, w, h };
 
-        // calculate strength
-        this.scaleX = this.props.horizontalStrength(box, coords);
-        this.scaleY = this.props.verticalStrength(box, coords);
+      // calculate strength
+      this.scaleX = this.props.horizontalStrength(box, coords);
+      this.scaleY = this.props.verticalStrength(box, coords);
 
-        // start scrolling if we need to
-        if (!this.frame && (this.scaleX || this.scaleY)) {
-          this.startScrolling();
-        }
-      },
-      100,
-      { trailing: false }
-    );
+      // start scrolling if we need to
+      if (!this.frame && (this.scaleX || this.scaleY)) {
+        this.startScrolling();
+      }
+    }
 
     startScrolling() {
       const tick = () => {
@@ -225,9 +227,9 @@ export default function createScrollingComponent(WrappedComponent, itemTypes) {
     WrappedComponent
   );
 
-  const forwardRef = (props, ref) => {
-    return <HoistedDroppableScrollingComponent {...props} forwardedRef={ref} />;
-  };
+  const forwardRef = (props, ref) => (
+    <HoistedDroppableScrollingComponent {...props} forwardedRef={ref} />
+  );
 
   forwardRef.displayName = getDisplayName(WrappedComponent);
   return React.forwardRef(forwardRef);
