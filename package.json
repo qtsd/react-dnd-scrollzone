@@ -39,7 +39,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "eslint-config-prettier": "^3.1.0",
     "hoist-non-react-statics": "^3.0.0",
     "lodash.throttle": "^4.0.1",
     "prop-types": "^15.5.9",
@@ -57,20 +56,21 @@
     "chai": "^4.2.0",
     "eslint": "^5.7.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.4.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "in-publish": "^2.0.0",
     "mocha": "^5.2.0",
     "react": "^16.3.0",
-    "react-dnd": "^5.0.0",
+    "react-dnd": "^7.0.0",
     "react-dom": "^16.3.0",
     "sinon": "^7.0.0",
-    "sinon-chai": "^3.2.0"
+    "sinon-chai": "^3.3.0"
   },
   "peerDependencies": {
     "react": "^16.3.0",
-    "react-dnd": "^2.6.0 || ^3.0.0 || ^5.0.0",
+    "react-dnd": "2 - 7",
     "react-dom": "^16.3.0"
   }
 }
